@@ -133,7 +133,7 @@ http://localhost/GasEase/
 
 ## 👨‍💻 Author
 
-**Nagraj Shindemaratha**
+nagesh shinde
 
 **Course:** Bachelor of Science (Computer Science)
 
@@ -151,10 +151,9 @@ This project is developed for educational and academic purposes only. It is not 
 
 ## 📞 Contact
 
-**Author:** Nagraj Shindemaratha
 
-GitHub: https://github.com/yourusername
+GitHub: https://github.com/nageshmanikraoshinde-droid/gasagency
 
-LinkedIn: https://linkedin.com/in/yourprofile
+LinkedIn: www.linkedin.com/in/nagesh-shinde-912272423
 
-Email: your-email@example.com
+Email: nageshmanikraoshinde@gmail.com
