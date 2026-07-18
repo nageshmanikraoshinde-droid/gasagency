@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GasEase - User Dashboard</title>
+
+<style>
+/* ===== Design Tokens ===== */
+:root {
+    --primary: #0D6EFD;
+    --primary-dark: #084298;
+    --primary-light: #4B9EFF;
+    --secondary: #FF7A3D;
+    --secondary-dark: #E85D25;
+    --success: #28A745;
+    --warning: #FFC107;
+    --danger: #DC3545;
+    --navy: #0D1B2A;
+    --cream: #FBF7F0;
+    --ink: #1C2733;
+    --ink-soft: #4B5A66;
+    --border: #E3DCCF;
+    --shadow: rgba(13, 27, 42, 0.10);
+    
+    --font-display: 'Arial Black', Arial, sans-serif;
+    --font-body: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Header ===== */
+header {
+    background: var(--navy);
+    color: white;
+    padding: 0 6vw;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 20px rgba(13, 27, 42, 0.2);
+}
+
+.header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+header .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+header .brand-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--secondary);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+header h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    color: white;
+}
+
+header h2 span {
+    color: var(--secondary);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+nav a {
+    color: rgba(251, 247, 240, 0.75);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.15s ease;
+    padding: 0.4rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+    color: var(--cream);
+    border-bottom-color: var(--secondary);
+}
+
+nav a.active {
+    color: var(--cream);
+    border-bottom-color: var(--secondary);
+}
+
+nav a.btn-logout {
+    background: var(--secondary);
+    color: var(--navy);
+    padding: 0.5rem 1.15rem;
+    border-radius: 999px;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+nav a.btn-logout:hover {
+    background: var(--secondary-dark);
+    color: white;
+    border-bottom: none;
+}
+
+/* ===== Banner ===== */
+.banner {
+    max-width: 1180px;
+    margin: 2rem auto 2rem;
+    padding: 3rem 4rem;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0F7FF 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(13, 27, 42, 0.08);
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(13, 110, 253, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.banner .eyebrow {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--secondary-dark);
+    margin-bottom: 0.75rem;
+    background: rgba(255, 122, 61, 0.10);
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+}
+
+.banner h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+}
+
+.banner h1 span {
+    color: var(--primary);
+}
+
+.banner p {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ===== Dashboard Stats ===== */
+.stats-grid {
+    max-width: 1180px;
+    margin: 0 auto 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 0 5%;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(13, 27, 42, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(13, 27, 42, 0.10);
+}
+
+.stat-card .stat-number {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.stat-card .stat-label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 0.25rem;
+}
+
+/* ===== Card Grid ===== */
+.container {
+    max-width: 1180px;
+    margin: 0 auto 3rem;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(13, 27, 42, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(13, 27, 42, 0.10);
+    border-color: var(--primary-light);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+/* Different card accent colors */
+.card:nth-child(1)::before { background: var(--primary); }
+.card:nth-child(2)::before { background: var(--secondary); }
+.card:nth-child(3)::before { background: var(--success); }
+.card:nth-child(4)::before { background: var(--warning); }
+.card:nth-child(5)::before { background: #6F42C1; }
+.card:nth-child(6)::before { background: var(--danger); }
+
+.card .icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 26px;
+    background: rgba(13, 110, 253, 0.10);
+    color: var(--primary);
+}
+
+.card:nth-child(2) .icon { background: rgba(255, 122, 61, 0.10); color: var(--secondary); }
+.card:nth-child(3) .icon { background: rgba(40, 167, 69, 0.10); color: var(--success); }
+.card:nth-child(4) .icon { background: rgba(255, 193, 7, 0.10); color: #D4A000; }
+.card:nth-child(5) .icon { background: rgba(111, 66, 193, 0.10); color: #6F42C1; }
+.card:nth-child(6) .icon { background: rgba(220, 53, 69, 0.10); color: var(--danger); }
+
+.card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+.card a {
+    display: inline-block;
+    text-decoration: none;
+    background: var(--primary);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.15s ease, transform 0.15s ease;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.20);
+}
+
+.card a:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.card:nth-child(2) a { background: var(--secondary); box-shadow: 0 4px 12px rgba(255, 122, 61, 0.20); }
+.card:nth-child(2) a:hover { background: var(--secondary-dark); }
+
+.card:nth-child(3) a { background: var(--success); box-shadow: 0 4px 12px rgba(40, 167, 69, 0.20); }
+.card:nth-child(3) a:hover { background: #1E7E34; }
+
+.card:nth-child(6) a { background: var(--danger); box-shadow: 0 4px 12px rgba(220, 53, 69, 0.20); }
+.card:nth-child(6) a:hover { background: #C82333; }
+
+/* ===== Footer ===== */
+footer {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 2rem 6vw;
+    border-top: 1px solid rgba(251, 247, 240, 0.08);
+}
+
+footer p {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: rgba(251, 247, 240, 0.5);
+    margin: 0;
+}
+
+footer p span {
+    color: var(--secondary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+    header .header-inner {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0.75rem 0;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .banner {
+        padding: 2rem 1.5rem;
+        margin: 1.5rem 5%;
+    }
+
+    .banner h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 0 5%;
+        gap: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    header h2 {
+        font-size: 1.3rem;
+    }
+
+    nav a {
+        font-size: 0.85rem;
+    }
+
+    .banner h1 {
+        font-size: 1.4rem;
+    }
+
+    .banner p {
+        font-size: 0.95rem;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* ===== Focus Visibility ===== */
+a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="brand">
+        <!-- <div class="brand-icon">g</div> -->
+            <h2>Gas<span>Ease</span></h2>
+        </div>
+        <nav>
+            <a href="index.html" class="active">Dashboard</a>
+            <a href="profile.php">Profile</a>
+            <a href="booking.php">Book Cylinder</a>
+            <a href="index.html" class="btn-logout">Logout</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== Banner ===== -->
+<div class="banner">
+    <span class="eyebrow">Welcome Back</span>
+    <h1>Welcome to <span>GasEase</span> Booking System</h1>
+    <p>Book your LPG Gas Cylinder anytime and track your orders online with ease.</p>
+</div>
+
+<!-- ===== Quick Stats ===== -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Total Bookings</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Active Orders</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Pending Complaints</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Reward Points</div>
+    </div>
+</div>
+
+<!-- ===== Card Grid ===== -->
+<div class="container">
+
+    <div class="card">
+        <div class="icon">🛢️</div>
+        <h3>Book Gas Cylinder</h3>
+        <p>Book a new LPG cylinder online instantly.</p>
+        <a href="booking.php">Book Now →</a>
+    </div>
+
+    <!-- <div class="card">
+        <div class="icon">💳</div>
+        <h3>Online Payment</h3>
+        <p>Pay booking amount securely online.</p>
+        <a href="payment.php">Pay Now →</a>
+    </div> -->
+
+    <div class="card">
+        <div class="icon">📋</div>
+        <h3>Complaint</h3>
+        <p>Register complaints or service requests.</p>
+        <a href="complaint.php">Register →</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">📞</div>
+        <h3>Customer Support</h3>
+        <p>Need help? Contact our support team.</p>
+        <a href="contact.php">Contact →</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">🏷️</div>
+        <h3>Latest Offers</h3>
+        <p>Check available offers and discounts.</p>
+        <a href="offers.php">View Offers →</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">⭐</div>
+        <h3>Feedback</h3>
+        <p>Share your experience with us.</p>
+        <a href="feedback.php">Give Feedback →</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 <span>GasEase</span> Booking System | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

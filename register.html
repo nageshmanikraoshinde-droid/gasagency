@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== Header ===== -->
+    <header>
+        <div class="header-inner">
+            <div class="brand" color="badge-blue">
+                <!-- <svg class="brand-mark" viewBox="0 0 34 34" fill="none">
+                    <rect width="34" height="34" rx="8" fill="#2E9CCA"/>
+                    <path d="M10 22L17 10L24 22H10Z" fill="#FBF7F0" opacity="0.9"/>
+                    <circle cx="17" cy="17" r="4" fill="#FF7A3D"/>
+                </svg> -->
+                <h1>gasease</h1>
+            </div>
+            <nav>
+                <a href="index.html" class="active">Home</a>
+                <a href="contact.html" class="active">Contact</a>
+                <a href="register.html" class="active">Sign Up</a>
+                <a href="login.html" class="btn-nav">Log In</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== Registration Form ===== -->
+    <div class="form-container">
+        <!-- Left: Form -->
+        <div class="form-content">
+            <div class="form-card">
+                <span class="eyebrow">Get Started</span>
+                <h2>Create Account</h2>
+                <p class="subtitle">..</p>
+
+                <form action="register.php" method="POST">
+                    <input type="text" name="fullname" placeholder="Full Name" required>
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="mobile" placeholder="Mobile Number" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm" placeholder="Confirm Password" required>
+                    <p class="password-hint">Must be at least 8 characters</p>
+                    <input type="submit" value="Create Account">
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="login.html">Login Here</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Illustration -->
+        <div class="form-illustration">
+            <img src="logo.png" alt="Brand Illustration">
+        </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+        <p>&copy; 2026 gasease. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
